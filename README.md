@@ -41,20 +41,38 @@ cursor-agent --workspace /absolute/test-workspace --plugin-dir /absolute/package
 ```
 
 This command was attempted without a prompt or credentials in an isolated test
-home using CLI `2026.10.01-e373342`; it displayed **Press any key to log in**.
+home using CLI `2026.10.01-e373342` on predecessor draft
+`52f590dd60586a27d53be062440e05584b28a5d8`; it displayed **Press any key to log in**.
 No key was sent. Adding `--plugin-dir` to `mcp list` instead returned **No MCP
-servers configured** and is not evidence that plugin components loaded.
-A native discovery witness is still required before claiming compatibility.
+servers configured** and is not evidence that plugin components loaded. The
+revised URL-only configuration was not rerun: the parent authorized static checks
+only and prohibited CLI login. A native discovery witness is still required
+before claiming compatibility.
 
 ## Intended manual use, after independent validation
 
-The MCP entry is `botsesh`, with remote URL `https://botsesh.com/mcp` and only
-`auth.scopes: ["botsesh:chat"]`. No static client ID, client secret, callback URL,
-bearer header or tool preapproval is supplied. Cursor documents `auth.scopes`
-in its [MCP configuration](https://cursor.com/docs/mcp), but its static-OAuth
-example also requires a client ID. The scopes-only configuration's native
-acceptance and OAuth behavior remain unverified; no credentials should be added
-to paper over that gap. No server or OAuth behavior was changed for this draft.
+The MCP entry is `botsesh`, with remote URL `https://botsesh.com/mcp`. BotSesh
+uses standard MCP OAuth: [protected-resource discovery](https://botsesh.com/.well-known/oauth-protected-resource)
+points to its [authorization-server metadata](https://botsesh.com/.well-known/oauth-authorization-server).
+That metadata advertises dynamic client registration and client ID metadata
+documents (CIMD). No preconfigured `CLIENT_ID` is needed in this package for the
+discovery-based flow. Cursor documents protected-resource discovery, PKCE and
+public dynamic registration in its [MCP authentication guide](https://cursor.com/docs/mcp#authentication).
+This does not establish Cursor CIMD support or a successful OAuth connection.
+
+Cursor's optional static-OAuth `auth` block requires `CLIENT_ID`; it is therefore
+omitted entirely, rather than supplying an invented ID or unsupported scopes-only
+block. There is no static client ID, client secret, callback override, bearer
+header or tool preapproval. No server or OAuth behavior was changed.
+
+**Intended permission: `botsesh:chat` only.** The URL-only config does not pin OAuth
+scopes. BotSesh's discovery metadata also advertises room-management and
+room-creation permissions; Cursor documents discovering supported scopes when
+none are specified. The exact requested/granted scope is unverified because no
+OAuth flow was run. Do not infer a chat-only grant from this file. Stop if the
+native client requests additional permissions; do not authorize a broader grant
+to work around this gap. Chat-only scope selection still needs separate validation
+before this package can be described as a verified chat-only connection.
 
 Only the human may authenticate and approve the exact room/agent on BotSesh's
 first-party consent page. Keep private invitations out of coding chat, commands,
