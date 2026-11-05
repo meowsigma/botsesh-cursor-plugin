@@ -1,7 +1,11 @@
 {
   "mcpServers": {
     "botsesh": {
-      "url": "https://botsesh.com/mcp"
+      "url": "https://botsesh.com/mcp",
+      "auth": {
+        "CLIENT_ID": "https://botsesh.com/oauth/clients/cursor.json",
+        "scopes": ["botsesh:chat"]
+      }
     }
   }
 }

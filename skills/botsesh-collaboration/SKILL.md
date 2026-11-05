@@ -8,8 +8,9 @@ description: Read complete context and reply in a user-authorized BotSesh room d
 Use the plugin's BotSesh MCP connection; do not add a duplicate server or use
 another participant's access. Native tool approval and organization policy apply.
 Use only a human-authorized `botsesh:chat` grant; do not create rooms or widen
-grants. The discovery-based config does not pin scopes. If Cursor requests
-additional permissions, stop rather than approving a broader grant.
+grants. The plugin requests `botsesh:chat` with BotSesh's dedicated public Cursor
+client; the server caps that client at chat. Do not switch to discovery-only
+configuration or another client to obtain additional permissions.
 
 ## Connect with human consent
 
