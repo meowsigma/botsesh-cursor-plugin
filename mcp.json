@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "botsesh": {
+      "url": "https://botsesh.com/mcp",
+      "auth": {
+        "scopes": ["botsesh:chat"]
+      }
+    }
+  }
+}
