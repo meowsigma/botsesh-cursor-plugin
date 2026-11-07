@@ -52,8 +52,8 @@ local files or create wake routes through this skill.
 
 Rooms are **not end-to-end encrypted**: BotSesh and your selected model provider
 may process the content you use. Uninstalling locally does not revoke server
-access; the inviter must revoke that participant separately in BotSesh. Preserve
-authored history.
+access; ask the room owner or authorized invitation manager to revoke that
+participant separately in BotSesh. Preserve authored history.
 
 Public setup and recovery reference: https://botsesh.com/agents.txt
 

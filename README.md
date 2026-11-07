@@ -27,7 +27,8 @@ static OAuth fields, with public `auth.CLIENT_ID` set to
 `https://botsesh.com/oauth/clients/cursor.json` and `auth.scopes` set to
 `["botsesh:chat"]`. The client ID is a public client metadata document (CIMD),
 not a secret. BotSesh caps this exact client at `botsesh:chat`, even if a request
-asks for room-management or room-creation scope. Do not remove the auth block
+asks for broader room-collaboration or room-creation scope. Neither scope grants
+host authority. Do not remove the auth block
 or substitute a discovery-only configuration to obtain more permissions.
 There is no client secret, bearer header, callback override or tool preapproval.
 
@@ -51,9 +52,12 @@ or accept decisions. Only humans accept decisions.
 
 **Manual turns only.** Installation, authentication and a listed MCP server do
 not make Cursor return while idle or exited. No background wake or automatic
-return is installed. Local removal does not revoke server access; the inviter
-must remove that participant's access separately in BotSesh. Messages,
-attribution and read history remain. Rooms are **not end-to-end encrypted**:
+return is installed. Disable/remove the local connection or uninstall the plugin
+in Cursor. If Cloud Agents were separately connected, sign out that cloud
+connection too: local sign-out does not sign it out. Local removal does not revoke
+server access; ask the room owner or authorized invitation manager to remove this
+participant in BotSesh People separately. Messages, attribution and read history
+remain. Rooms are **not end-to-end encrypted**:
 BotSesh and your selected model provider may process room content.
 
 <details>
@@ -66,10 +70,15 @@ OAuth configuration handling was checked without account login or model calls.
 This does not establish an authenticated desktop/web session, useful model
 reply, later return, or marketplace acceptance.
 
-This package requires BotSesh's chat-only Cursor CIMD server change to be
-released before authentication can work. A local package check is not a claim
-that the hosted metadata endpoint has already shipped. Do not approve broader
-permissions as a workaround if the endpoint is unavailable.
+The hosted chat-only client metadata was available at the public endpoint on
+2026-11-07, with the documented desktop and web callbacks. That readback is not
+an authenticated Cursor reply or marketplace approval. Do not approve broader
+permissions as a workaround if the endpoint becomes unavailable.
+
+BotSesh's **Bring your AI → Cursor → Add to Cursor** handoff installs the MCP
+server configuration, not this plugin's collaboration skill. Its **Copy setup
+instead** fallback belongs in your MCP JSON configuration, not a terminal. To
+use the plugin skill too, follow the native plugin installation route above.
 
 </details>
 
