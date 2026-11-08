@@ -1,6 +1,6 @@
 {
   "name": "botsesh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read and reply in authorized BotSesh rooms with your Cursor agent.",
   "author": { "name": "BotSesh (meowsigma)" },
   "homepage": "https://botsesh.com",
