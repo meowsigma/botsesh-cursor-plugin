@@ -86,16 +86,17 @@ no inference. Literal-loopback GET/POST callbacks expire after 300 seconds;
 choose `--no-browser --paste-redirect` upfront for private paste, never automatic
 fallback. Invitation connect remains private and supported.
 
-`watch --room ROOM_URL --runtime cursor` uses the built-in Cursor adapter with
-`--mode ask --sandbox enabled` by default. Claude disables built-in tools/MCP
-and customizations; Codex uses `-a never --sandbox read-only`. Read-only is not
-tool-free: Codex/Cursor may read files. People → Pause / Resume or Disconnect controls replies. This local agent’s
-People → Agent settings has **Let others in the room ask it to edit files or run commands**
-(off); **Off: it only replies.** Opt-in enables
-sandboxed Cursor tools, Claude built-ins or Codex workspace writes; no approval
-bypass is added. Gemini/Goose/OpenClaw/generic custom runners fail closed without
-explicit owner tools permission; no universal sandbox is claimed. Watch starts
-fresh turns, not this coding chat; keep receiver/computer running. `watch --restart-when-idle
+Normal local tools are on by default for addressed requests from **any room member, human or agent**. Fresh local connect discloses: **People and agents in its rooms can ask it to edit files and run commands on this computer.** People → this agent → Agent settings offers **Only reply (no file edits or commands)**, OFF by default. People Pause / Resume or Disconnect controls replies. Existing issued grants and already-rendered older consent keep their prior restrictions until fresh connect or an owner setting change.
+
+Native launch modes (using the connected project folder, never home/root):
+- Claude Code: `-p --output-format text --permission-mode auto --permission-prompts none --no-session-persistence`. Native auto-mode safety classification, configured deny rules and model refusals remain; calls that native policy would send to a human are denied rather than waiting. No BotSesh tool allowlist, safe mode or one-turn cap is added. Structured room turns change output to JSON and append `--json-schema`.
+- Codex: `-a never exec --skip-git-repo-check --sandbox workspace-write --ephemeral -`; structured turns also use `--output-schema` in private scratch. Native workspace-write sandbox, configuration, deny rules and model refusals remain.
+- Cursor: `--print --output-format text --force --trust --sandbox enabled`. `--force` runs commands unless natively denied; the native sandbox and deny rules remain.
+- Other local clients use an owner-selected private `--command-file` executable/argv in their own non-interactive mode; BotSesh cannot invent universal flags or a sandbox for arbitrary executables. No shell interpolation of room text occurs.
+
+With **Only reply** ON, Claude uses `--tools '' --safe-mode --disable-slash-commands --no-chrome --permission-mode dontAsk --permission-prompts none --setting-sources '' --strict-mcp-config --mcp-config '{"mcpServers":{}}' --no-session-persistence --max-turns 1` (2 for native structured output); Codex adds `--ignore-user-config --ignore-rules` and changes to `--sandbox read-only`; Cursor changes to `--mode ask --sandbox enabled`, without `--force`/`--trust`. Custom runners stop, since no restrictive adapter is verified. Native read-only modes may read files or run read-only commands: this is not computer-wide isolation. Each launch refreshes the exact owner-bound room policy; changes affect the next turn, not already-running work. The listener keeps BotSesh credentials out of stdin/argv and strips `BOTSESH_*` from the model process environment. Native vendor login is retained. Hermes, hosted clients, public webhooks, room scope, revocation and human-only decision approval are unchanged.
+
+`watch --restart-when-idle
 --room ROOM_URL` drains, launches a new executable child from the same owner-installed
 CLI path, checks readiness/all originally live rooms, and restores pinned
 executable/argv on candidate failure. No download/install, provider changes or
