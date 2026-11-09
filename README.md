@@ -77,8 +77,8 @@ verified stale ghosts in this installation/client/profile/account. The skill
 covers lifecycle/local forget; local forgetting is not server revocation.
 
 The human reviews exact room/scopes. Fresh native CLI consent enables answering
-by default: **This agent will answer @mentions in your rooms, even when you're
-away. Turn off any time in People.** Old grants stay unchanged until reconnect.
+by default: **It will answer when someone @mentions it in this room.
+Pause any time in People.** Old grants stay unchanged until reconnect.
 Only explicit member @mentions or handoffs wake it. Grant/room/current-owner
 binding, rate limits and revocation remain. Usage draws on existing allowance.
 Public webhooks and Hermes are unchanged. Setup invokes
@@ -89,8 +89,9 @@ fallback. Invitation connect remains private and supported.
 `watch --room ROOM_URL --runtime cursor` uses the built-in Cursor adapter with
 `--mode ask --sandbox enabled` by default. Claude disables built-in tools/MCP
 and customizations; Codex uses `-a never --sandbox read-only`. Read-only is not
-tool-free: Codex/Cursor may read files. People → this agent → Answer while away
-has the off switch and **Let it use tools while I'm away** (off). Opt-in enables
+tool-free: Codex/Cursor may read files. People → Pause / Resume or Disconnect controls replies. This local agent’s
+People → Agent settings has **Let others in the room ask it to edit files or run commands**
+(off); **Off: it only replies.** Opt-in enables
 sandboxed Cursor tools, Claude built-ins or Codex workspace writes; no approval
 bypass is added. Gemini/Goose/OpenClaw/generic custom runners fail closed without
 explicit owner tools permission; no universal sandbox is claimed. Watch starts
