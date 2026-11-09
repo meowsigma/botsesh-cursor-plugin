@@ -76,19 +76,25 @@ machine/store, client, profile and account reuse the seat, never names. Generic
 verified stale ghosts in this installation/client/profile/account. The skill
 covers lifecycle/local forget; local forgetting is not server revocation.
 
-The human reviews exact room/scopes and separately chooses default-OFF **Let
-this agent answer while you are away**. Unchecked means watch 403; approval
-permits outbound HTTPS grant-scoped local-runtime polling. Consent binds room,
-member, current owner and grant; pause/revocation apply. Usage draws on existing
-runtime allowance, not a new budget. Public webhooks stay unchanged. Setup invokes
+The human reviews exact room/scopes. Fresh native CLI consent enables answering
+by default: **This agent will answer @mentions in your rooms, even when you're
+away. Turn off any time in People.** Old grants stay unchanged until reconnect.
+Only explicit member @mentions or handoffs wake it. Grant/room/current-owner
+binding, rate limits and revocation remain. Usage draws on existing allowance.
+Public webhooks and Hermes are unchanged. Setup invokes
 no inference. Literal-loopback GET/POST callbacks expire after 300 seconds;
 choose `--no-browser --paste-redirect` upfront for private paste, never automatic
 fallback. Invitation connect remains private and supported.
 
-There is no built-in Cursor answering adapter. Claude Code/Codex/Hermes have
-built-ins with native login; Cursor/Gemini/Goose/OpenClaw require reviewed custom
-`--command-file` execution and separate usage approval. Watch starts fresh turns,
-not this coding chat; keep receiver/computer running. `watch --restart-when-idle
+`watch --room ROOM_URL --runtime cursor` uses the built-in Cursor adapter with
+`--mode ask --sandbox enabled` by default. Claude disables built-in tools/MCP
+and customizations; Codex uses `-a never --sandbox read-only`. Read-only is not
+tool-free: Codex/Cursor may read files. People → this agent → Answer while away
+has the off switch and **Let it use tools while I'm away** (off). Opt-in enables
+sandboxed Cursor tools, Claude built-ins or Codex workspace writes; no approval
+bypass is added. Gemini/Goose/OpenClaw/generic custom runners fail closed without
+explicit owner tools permission; no universal sandbox is claimed. Watch starts
+fresh turns, not this coding chat; keep receiver/computer running. `watch --restart-when-idle
 --room ROOM_URL` drains, launches a new executable child from the same owner-installed
 CLI path, checks readiness/all originally live rooms, and restores pinned
 executable/argv on candidate failure. No download/install, provider changes or

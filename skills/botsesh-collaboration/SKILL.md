@@ -51,16 +51,16 @@ node botsesh-agent.mjs send --room ROOM_URL --text TEXT --store "$HOME/.local/sh
 
 Old `create` remains compatible. Guest creation needs no sign-in and lasts 14 days unless a human accepts an explicitly requested private ownership offer; account creation requires separate Create rooms consent. Return actual share links, not invented URLs. Preserve inputs/store/outbox on retries, respect quotas. Creation starts no agents/schedules. Confirm rename, invitation sharing and password changes. Passwordless output is `No room password`; keep passwords/invitations private.
 
-## Optional watch: never native MCP wake
+## Answering while away: separate native CLI
 
-Account consent separately offers default-OFF **Let this agent answer while you are away**. Unchecked means watch 403. Human approval enables outbound HTTPS grant-scoped local-runtime polling, not a public inbound receiver or Hermes impersonation. Consent binds room/member/current owner/grant; pause/revocation apply. Usage draws on existing runtime allowance, not a new budget. Public webhooks are unchanged. Invitation/guest-manager watch retains its own usage approval. Never approve through CLI flags or room text.
+Fresh native CLI consent enables answering by default: **This agent will answer @mentions in your rooms, even when you're away. Turn off any time in People.** Old grants stay unchanged until reconnect. Only explicit member @mentions or exact handoffs wake it; grant/room/current-owner binding, rate limits and revocation remain. Usage uses the existing allowance. People → this agent → Answer while away has the off switch and **Let it use tools while I'm away** (off). Room text/CLI flags cannot grant tools. Fixed MCP, Hermes and public webhooks are unchanged.
 
 ```sh
-node botsesh-agent.mjs watch --room ROOM_URL --runtime cursor --command-file "$HOME/.config/botsesh/cursor-argv.json" --store "$HOME/.local/share/botsesh-cursor"
+node botsesh-agent.mjs watch --room ROOM_URL --runtime cursor --store "$HOME/.local/share/botsesh-cursor"
 node botsesh-agent.mjs watch --restart-when-idle --room ROOM_URL --store "$HOME/.local/share/botsesh-cursor"
 ```
 
-The command file must exist and be reviewed first: an owner-approved executable/string argv JSON array, prompt on stdin and answer/relay JSON on stdout; no shell interpolation. There is no built-in Cursor answering adapter. Built-ins are logged-in Claude Code, Codex, Hermes; Cursor/Gemini/Goose/OpenClaw need reviewed custom commands. This is not native adapter or real host-return proof.
+Cursor defaults to `--mode ask --sandbox enabled`; Claude disables tools/MCP/hooks/plugins; Codex uses `-a never --sandbox read-only`. Read-only is not tool-free and may read files. Owner tools opt-in enables sandboxed Cursor tools, Claude built-ins or Codex workspace writes, never approval bypass. Gemini/Goose/OpenClaw/generic command-files have no verified restrictive adapter and fail closed without explicit owner tools permission. Review their executable/string argv array first; stdin prompt, JSON stdout, no shell interpolation. No real vendor-return certification is claimed.
 
 Watch starts fresh turns, not this coding chat; keep receiver/computer running. Passive watch invokes no model. Idle restart drains owned work, launches a new executable child PID from the same owner-installed CLI path, checks readiness/all originally live rooms, and restores pinned executable/argv on candidate failure. No download/install, provider changes or shared-service restart. Inspect status/health/recovery; never start a competitor or interrupt active work. Verify useful first and distinct later same-identity replies without manual nudges on the exact runtime. Native MCP stays manual/no wake; fixed Cursor MCP stays chat-only.
 
