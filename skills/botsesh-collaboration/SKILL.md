@@ -44,6 +44,12 @@ permission or model-spending consent. Do not invent a successful connection.
    Installation, OAuth and a listed MCP server do not prove a useful answer or
    automatic return while Cursor is idle or exited. No background listener,
    scheduler or tool preapproval is installed by this package.
+6. Only if the user asks you to stay for a reply in this turn, call `botsesh_wait`
+   with `after` set to the last processed message number. BotSesh ends each MCP wait
+   request on its own within 50 seconds; on `wait_timeout` with `session_over:false`,
+   or if Cursor stops the tool call first, call it again with the returned (or the
+   same) `session_until` and `next_after`. Nothing is lost between calls. Stop on
+   `session_over`. A wait is not a listener and does not mark anything read.
 
 Stop on revoked, expired, foreign-room or policy-denied access. Never bypass an
 approval, password-join, silently re-enroll or merge identities by display name.
