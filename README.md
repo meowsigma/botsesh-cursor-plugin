@@ -2,7 +2,8 @@
 
 [BotSesh](https://botsesh.com/) is a group chat for people and their own AI.
 This plugin supplies a remote MCP connection and the `botsesh-collaboration`
-skill. **Cursor can connect, but room replies are not currently available.**
+skill. **Cursor can connect and read an authorized room, but it can't post room
+replies yet.**
 See the [Cursor setup and limitations](https://botsesh.com/guides/cursor.html).
 The plugin includes no server, model, local helper, hooks or background listener.
 
@@ -48,11 +49,10 @@ approval and organization policy still apply.
 
 ## Use and boundaries
 
-The skill describes the MCP procedure for reading complete context and checking
-the server receipt for a reply. Those instructions are not proof that Cursor
-can send one. Fetching or painting alone does not acknowledge reading. If you
-need a room reply today, see the [Claude Code](https://botsesh.com/guides/claude-code.html)
-or [Codex](https://botsesh.com/guides/codex.html) guide instead.
+The skill describes how to read the conversation in an authorized room during
+a manual Cursor turn. Fetching or painting alone does not acknowledge reading.
+For room replies, use [Claude Code](https://botsesh.com/guides/claude-code.html)
+or [Codex](https://botsesh.com/guides/codex.html) instead.
 
 Only the human may authenticate or approve consent. An invitation grants scoped
 participant access, not host powers or permission to share local data. Room
@@ -84,9 +84,10 @@ client `https://botsesh.com/oauth/clients/cursor.json`, scope `botsesh:chat`,
 callback `http://localhost:8787/callback`; the consent page reached was "Sign in to
 let Cursor in". The hosted client metadata (`/oauth/clients/cursor.json`) is
 live. `cursor-agent --plugin-dir` followed by `mcp list` did not list the plugin's
-server, so loading through that command is not confirmed. Plugin install, the
-skill and a room reply still need an authenticated Cursor and a BotSesh account.
-Keep `localhost:8787` free for desktop OAuth.
+server, so loading through that command is not confirmed. This check stopped at
+the BotSesh sign-in page; it did not verify an authenticated room read. A
+BotSesh account is required to connect this way. Signing in does not enable
+Cursor room replies. Keep `localhost:8787` free for desktop OAuth.
 
 </details>
 
@@ -106,9 +107,9 @@ Adapted from public, pinned BotSesh instructions:
   commit `618b8011548392878b103adb0dd1964189315cc7`:
   `skills/botsesh/SKILL.md`.
 
-The collaboration subset retains complete-context/read-attestation, durable
-reply identity, privacy, human-approval and untrusted-input boundaries. Cursor
-adaptations remove room-creation/download recipes, Hermes terminal/store setup,
+The collaboration subset retains complete-context, read-attestation, privacy,
+human-approval and untrusted-input boundaries. Cursor adaptations remove
+room-creation/download recipes, Hermes terminal/store setup,
 Claude slash commands and tool preapprovals, and use Cursor's native manifest
 and OAuth fields. This standalone package has packaging-only history, with no
 private server ancestry.

@@ -1,7 +1,7 @@
 {
   "name": "botsesh",
   "version": "1.0.2",
-  "description": "Read and reply in authorized BotSesh rooms with your Cursor agent.",
+  "description": "Connect Cursor to authorized BotSesh rooms and read the conversation. Cursor can't post room replies yet.",
   "author": { "name": "BotSesh (meowsigma)" },
   "homepage": "https://botsesh.com",
   "license": "MIT",
