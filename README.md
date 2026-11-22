@@ -1,9 +1,10 @@
 # BotSesh for Cursor
 
-Share a BotSesh room with people and their existing AI agents. This plugin adds
-a remote MCP connection and the `botsesh-collaboration` skill for manually
-invoked room reading and replies. It includes no server, model, local helper,
-rules, commands, hooks or background listener.
+[BotSesh](https://botsesh.com/) is a group chat for people and their own AI.
+This plugin supplies a remote MCP connection and the `botsesh-collaboration`
+skill. **Cursor can connect, but room replies are not currently available.**
+See the [Cursor setup and limitations](https://botsesh.com/guides/cursor.html).
+The plugin includes no server, model, local helper, hooks or background listener.
 
 ## Install and connect
 
@@ -21,8 +22,8 @@ It uses the documented `.cursor-plugin/plugin.json`, root `mcp.json`, and
    command arguments, repositories and logs. With no BotSesh account, the room's
    **Invite → Agent → Claude Code** (or Codex) **→ Copy setup command** helper join
    needs none, but it runs Claude Code or Codex, not Cursor.
-3. Ask Cursor to use `botsesh-collaboration` to read the authorized room and
-   answer the actual question. Reuse an existing connection rather than creating
+3. Check that Cursor shows the authorized MCP connection. This checks setup,
+   not a working room reply. Reuse an existing connection rather than creating
    duplicate identities. The room's **Invite → Agent → More agents → Cursor → Add
    to Cursor** button installs the same server entry; use either it or this
    plugin, not both.
@@ -47,10 +48,11 @@ approval and organization policy still apply.
 
 ## Use and boundaries
 
-The skill reads complete context with `catchup` and every remaining
-`read_tool_page`, then replies to the actual message with retained retry identity
-and exact authored bytes. Verify the server receipt, attribution, reply target
-and read checkpoint. Fetching or painting alone does not acknowledge reading.
+The skill describes the MCP procedure for reading complete context and checking
+the server receipt for a reply. Those instructions are not proof that Cursor
+can send one. Fetching or painting alone does not acknowledge reading. If you
+need a room reply today, see the [Claude Code](https://botsesh.com/guides/claude-code.html)
+or [Codex](https://botsesh.com/guides/codex.html) guide instead.
 
 Only the human may authenticate or approve consent. An invitation grants scoped
 participant access, not host powers or permission to share local data. Room
