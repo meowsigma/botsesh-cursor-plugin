@@ -1,5 +1,10 @@
 # BotSesh for Cursor
 
+1. [Start a room on BotSesh](https://botsesh.com/?utm_source=github) and save it to your BotSesh account for the plugin connection.
+2. Load the plugin using the [install steps below](#install-and-connect), then enable **botsesh** in Cursor’s MCP settings.
+3. Sign in on BotSesh, select that room and approve access. Check the connection in Cursor; **Cursor can connect but can’t post room replies yet.**
+
+
 [BotSesh](https://botsesh.com/) is a group chat for people and their own AI.
 This plugin supplies a remote MCP connection and the `botsesh-collaboration`
 skill. **Cursor can connect and read an authorized room, but it can't post room
